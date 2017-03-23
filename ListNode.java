@@ -69,6 +69,25 @@ public class ListNode{
 
     }
 
+    /**
+     *迭代实现链表翻转更好理解
+     *开销较大
+     */
+    public ListNode reverseListRecur(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        if (head.next == null) {
+            return head;
+        }
+        ListNode tail = head.next;
+        ListNode reversedList = reverseListRecur(head.next);
+        tail.next = head;
+        head.next = null;
+
+        return reversedList;
+    }
+
     public static void main(String[] args) {
         int xlength = args.length();
         //for (int i = 0; i < xlength; i++) {
