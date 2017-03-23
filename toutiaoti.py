@@ -1,3 +1,4 @@
+from sys import argv
 import math
 
 
@@ -24,15 +25,15 @@ class tongle:
         return self.length
         pass
 
-
-toutiao0 = toutiao(0,0)
-toutiao1 = toutiao(1,2)
-toutiao2 = toutiao(3,4)
-a = [toutiao0, toutiao1, toutiao2]
-print a.__len__()
-tongle1 = tongle([toutiao0,toutiao1,toutiao2])
-
-print tongle1.toutiaos[0].x
-print tongle1._getLength()
+if __name__ == "__main__":
+    toutiao0 = toutiao(0, 0)
+    toutiao1 = toutiao(1, 2)
+    toutiao2 = toutiao(3, 4)
+    a = [toutiao0, toutiao1, toutiao2]
+    print a.__len__()
+    tongle1 = tongle([toutiao0, toutiao1, toutiao2])
+    print tongle1.toutiaos[0].x
+    print tongle1._getLength()
+    print "main"
 
 
