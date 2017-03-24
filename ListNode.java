@@ -1,15 +1,15 @@
 import java.lang.System.*;
+import java.util.ArrayList;
 
 
 /**
- *test for a palindrome
+ * @author liudashuang
+ *  collection for ListNode function
  */
 public class ListNode{
 
-
     int val;
     ListNode next;
-
 
     public ListNode(int val){
         this.val = val;
@@ -17,8 +17,8 @@ public class ListNode{
     }
 
     /**
-     *
-     *判断是否为回声链表
+     *  给定一个单链表，判断是否为回声链表<br>
+     *  O(n) time and O(1) space
      */
     public boolean isPalindrome(ListNode head) {
         if (head == null || head.next == null) {
@@ -47,7 +47,7 @@ public class ListNode{
     }
 
     /**
-     * 链表的翻转
+     *  链表的翻转
      */
     public static ListNode reverseList(ListNode head) {    
 
@@ -72,8 +72,8 @@ public class ListNode{
     }
 
     /**
-     *迭代实现链表翻转更好理解
-     *开销较大
+     *  迭代实现链表翻转更好理解<br>
+     *  开销较大
      */
     public ListNode reverseListRecur(ListNode head) {
         if (head == null) {
@@ -91,7 +91,7 @@ public class ListNode{
     }
 
     /**
-     * 删除有序链表中的重复节点一
+     * 删除有序链表中的重复节点一<br>
      * toturials: give ListNode 1>2>2>3
      *           return 1>2>3
      */
@@ -118,8 +118,8 @@ public class ListNode{
     }
 
     /**
-     * 删除有序链表中的重复节点二
-     * 和一区别：删除重复节点本身。
+     * 删除有序链表中的重复节点二<br>
+     * 和一区别：删除重复节点本身。<br>
      * toturials: give ListNode 1>2>2>3
      *          return 1>3
      */
@@ -134,27 +134,27 @@ public class ListNode{
         int val = head.val;
         ListNode node = head;
         ListNode beforenode = new ListNode(0);
+        ListNode killednode = beforenode;
         while (node.next != null) {
             if (node.val != node.next.val) {
                 System.out.println("d1:"+node.val);
-                //beforenode.next = node;
-                //beforenode = beforenode.next;
+                beforenode.next = node;
+                beforenode = beforenode.next;
                 node = node.next;
             } else {
                 System.out.println("d2:"+node.val);
                 while (node.val == node.next.val && node.next != null) {
                     node.next = node.next.next;
                 }
-                //beforenode.next = node.next.next;
-                //beforenode = beforenode.next;
+                node = node.next;
             }
         }
-        dispList(beforenode);
-        return beforenode;
+        dispList(killednode.next);
+        return killednode.next;
     }
     
     /**
-     *  删除有序单链表的重复节点，功能同二
+     *  删除有序单链表的重复节点，功能同二<br>
      *  通过迭代实现。
      */
     public static ListNode killDuplicatesRecur(ListNode head) {
@@ -180,6 +180,34 @@ public class ListNode{
 
         return head;
     }
+
+    /**
+     *  删除相对于最后一个节点的第N个节点。<br>
+     *  tutorials:  given list 1>2>3>4>5    n = 2
+     *          return 1>2>3>5
+     *  note: n始终合法，此方法为
+     */
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
+        dispList(head);
+        if (head == null || head.next == null) {
+            return null;
+        }
+        ListNode first = head;
+        ListNode second = head;
+        for (int i = 0; i < n ;i ++) {
+            first = first.next;
+            if (first == null) {
+                return head.next;
+            }
+        }
+        while (first.next != null) {
+            first = first.next;
+            second = second.next;
+        }
+        second.next = second.next.next;
+        return head;
+    }
+
 
     public static void dispList(ListNode head) {
         if (head == null) {
@@ -213,23 +241,18 @@ public class ListNode{
     }
 
     public static void main(String[] args) {
+        ArrayList<ListNode> listNodes = new ArrayList();
         int xlength = args.length;
-        //for (int i = 0; i < xlength; i++) {
-        //    ListNode[] node
-        //}
-        ListNode a = new ListNode(1);
-        ListNode b = new ListNode(2);
-        ListNode c = new ListNode(2);
-        ListNode d = new ListNode(3);
-        ListNode e = new ListNode(4);
-        a.next = b;
-        b.next = c;
-        c.next = d;
-        d.next = e;
-        //dispList(a);
-        //ListNode z = reverseList(a);
-        ListNode x = killDuplicates(a);
-        //ListNode y = deleteDuplicates(a);
+        System.out.println("listNodes length: " + xlength);
+        ListNode a = new ListNode(0);
+        ListNode listNode = a;
+        for (int i = 0; i < xlength; i++) {
+            listNodes.add(new ListNode(Integer.valueOf(args[i])));
+            a.next = listNodes.get(i);
+            a = a.next;
+        }
+        dispList(listNode.next);
+        killDuplicates(listNode.next);
     }
 
 }
