@@ -185,7 +185,7 @@ public class ListNode{
      *  删除相对于最后一个节点的第N个节点。<br>
      *  tutorials:  given list 1>2>3>4>5    n = 2
      *          return 1>2>3>5
-     *  note: n始终合法，此方法为
+     *  note: n始终合法，此方法空间复杂度为O(1)
      */
     public static ListNode removeNthFromEnd(ListNode head, int n) {
         dispList(head);
@@ -208,6 +208,72 @@ public class ListNode{
         return head;
     }
 
+    /**
+     *  给定两个链表，如果相交，找到相交的节点。<br>
+     *  如果不想交，返回null。<br>
+     *  tutorial: a1>a2>a3>c1>c2, b1>b2>c1>c2
+     *  return c1
+     */
+    public ListNode getInterSectionNode(ListNode headA, ListNode headB){
+        
+        if (headA == null || headB == null) {
+            return null;
+        }
+
+        //在此判断headA和headB的最后一个节点是否相同。
+        //如果不等，则不想交，返回null（略）
+
+        int alen = listLen(headA);
+        int blen = listLen(headB);
+        int xlen = alen - blen;
+        if (xlen > 0) {
+            while (xlen-- != 0) {
+                headA = headA.next;
+            }
+        } else {
+            while (Math.abs(xlen) != 0) {
+                headB = headB.next;
+            }
+        }
+        while (headA != headB) {
+            headA = headA.next;
+            headB = headB.next;
+        }
+        return headA;
+    }
+
+    /**
+     *
+     *  合并两个有序链表
+     *
+     */
+    public ListNode mergeTwoSortedList(ListNode l1, ListNode l2){
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+        ListNode p = new ListNode(0);
+        ListNode head = p;
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                p.next = l1;
+                l1 = l1.next;
+            } else {
+                p.next = l2;
+                l2 = l2.next;
+            }
+            p = p.next;
+        }
+
+        if (l1 != null) {
+            p.next = l1;
+        } else {
+            p.next = l2;
+        }
+        return head;
+    }
 
     public static void dispList(ListNode head) {
         if (head == null) {
