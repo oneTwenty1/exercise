@@ -83,3 +83,22 @@ public List<Integer> majorityElement(int[] nums) {
 
     return rt;
 }
+
+/**
+ *
+ *  给出商品一段时间的价目表，找出最大利润。
+ *
+ */
+public int maxProfit(int[] prices){
+    if (prices.length <= 1) {
+        return 0;
+    }    
+    int maxProfit = 0;
+    int lowest = Integer.MAX_VALUE;
+
+    for (int v : prices) {
+        lowest = Math.min(v, lowest);
+        maxProfit = Math.max(maxProfit, v - lowest);
+    }
+    return maxProfit;
+}
